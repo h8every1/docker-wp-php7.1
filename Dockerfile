@@ -52,6 +52,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Use the default development configuration
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN chown www-data:www-data /var/www/html
 
 # fix user rights for files
 USER www-data
