@@ -32,8 +32,11 @@ RUN { \
 
 
 # Install xDebug module
-# to disable it use this command in your Dockerfile when extending:
+# to disable it use this commands in your Dockerfile when extending:
+# USER root;
 # RUN rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+# USER www-data;
+
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
@@ -50,6 +53,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 # Use the default development configuration
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
+# fix user rights for files
 USER www-data
 # Set working directory
 WORKDIR /var/www/html
